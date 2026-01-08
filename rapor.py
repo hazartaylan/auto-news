@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+
 
 import re
 import sys
@@ -258,14 +257,14 @@ def karta_gorsel_ekle(right_cell, entry, link: str, max_width_inch: float = 4.9)
         return False
 
     try:
-        # Resim için tek hücreli mini tablo (çerçeve efekti)
+        # çerçeve efekti
         img_table = right_cell.add_table(rows=1, cols=1)
         img_table.autofit = False
         img_table.columns[0].width = Inches(max_width_inch)
 
         cell = img_table.cell(0, 0)
 
-        # 🔲 İnce, modern çerçeve
+        #  İnce çerçeve
         tcPr = cell._tc.get_or_add_tcPr()
         tcBorders = OxmlElement("w:tcBorders")
         for side in ("top", "left", "bottom", "right"):
@@ -402,7 +401,7 @@ def docx_olustur(items: List[Haber], out_path: str, gun: int):
         left = table.cell(0, 0)
         right = table.cell(0, 1)
 
-        # ✅ Tasarım: koyu sol panel + açık gri içerik
+        # koyu sol panel + açık gri içerik
         shade_cell(left, "#111827")
         shade_cell(right, "#F3F4F6")
         set_cell_margins(left)
@@ -430,7 +429,7 @@ def docx_olustur(items: List[Haber], out_path: str, gun: int):
         tr.font.size = Pt(12)
         tr.font.color.rgb = RGBColor(17, 24, 39)
 
-        # ✅ Resim (varsa) başlığın hemen altına ekle (küçük + çerçeveli)
+        #  (küçük + çerçeveli)
         karta_gorsel_ekle(right, it.entry, it.link, max_width_inch=4.9)
 
         # Özet
@@ -448,7 +447,7 @@ def docx_olustur(items: List[Haber], out_path: str, gun: int):
 
 
 # -----------------------------
-# Çekme pipeline
+# Çekme
 # -----------------------------
 def tumunu_cek(gun: int, limit_kaynak: int, sayfadan_getir: bool) -> List[Haber]:
     items: List[Haber] = []
